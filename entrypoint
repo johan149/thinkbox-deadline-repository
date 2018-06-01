@@ -1,0 +1,4 @@
+#!/bin/bash
+cp -R -u -p -v /opt/Thinkbox/DeadlineRepository10/* /repo
+echo 'Repo updated'
+while true; do sleep 1; done
