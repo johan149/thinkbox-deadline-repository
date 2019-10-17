@@ -20,10 +20,10 @@ RUN mkdir /opt/Thinkbox/DeadlineDatabase10/certs/
 RUN ulimit -n 64000
 
 # Give Permisions
-RUN groupadd nobody
 RUN chmod -R 777 /opt/Thinkbox/DeadlineRepository10
 RUN chmod -R 777 /opt/Thinkbox/DeadlineDatabase10/
 RUN chmod -R 777 /opt/Thinkbox/DeadlineDatabase10/certs/
+RUN groupadd nobody
 RUN chown -R nobody /opt/Thinkbox/DeadlineRepository10
 RUN chgrp -R nobody /opt/Thinkbox/DeadlineRepository10
 
@@ -36,5 +36,6 @@ RUN ./DeadlineRepository-10.1.0.12-linux-x64-installer.run \
     --unattendedmodeui minimal --mode unattended --prefix /opt/Thinkbox/DeadlineRepository10/ --setpermissions true --installmongodb true --dbOverwrite true --prepackagedDB ./mongodb-linux-x86_64-debian81-3.2.18.tgz --dbInstallationType prepackagedDB --mongodir /opt/Thinkbox/DeadlineDatabase10/ --dbListeningPort 27100 \
     --certgen_outdir /opt/Thinkbox/DeadlineDatabase10/certs --certgen_password deadlinepass1111 --createX509dbuser true --requireSSL true --dbhost hostname --dbport 27100 --dbname deadline10db --dbuser root --dbpassword deadlinepass1111 --dbauth true --dbsplit true &&\
     rm -f DeadlineRepository-10.1.0.12-linux-x64-installer.run
+    rm -f mongodb-linux-x86_64-debian81-3.2.18.tgz
 COPY entrypoint .
 CMD ["/entrypoint"]
