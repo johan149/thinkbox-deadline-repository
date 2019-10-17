@@ -24,9 +24,6 @@ RUN chmod -R 777 /opt/Thinkbox/DeadlineDatabase10/certs/
 RUN chown -R nobody /opt/Thinkbox/DeadlineRepository10
 RUN chgrp -R nobody /opt/Thinkbox/DeadlineRepository10
 
-# Delete Files
-RUN rm -f /opt/Thinkbox/DeadlineRepository10/prepackagedDB/mongodb-linux-x86_64-debian81-3.2.18.tgz
-
 # Download mongoDB Prepacked Binaries
 RUN curl http://downloads.mongodb.org/linux/mongodb-linux-x86_64-debian81-3.2.18.tgz --output /opt/Thinkbox/DeadlineRepository10/prepackagedDB/mongodb-linux-x86_64-debian81-3.2.18.tgz
 
