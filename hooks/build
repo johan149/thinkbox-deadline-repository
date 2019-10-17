@@ -1,6 +1,6 @@
 #!/bin/bash -xe
 # Dockerhub build script
-installer_url="https://github.com/rojopolis/thinkbox-deadline-repository/releases/download/10.0.15.5/DeadlineRepository-10.0.15.5-linux-x64-installer.run"
+installer_url="https://github.com/johan149/thinkbox-deadline-repository/releases/download/10.1.0.12/DeadlineRepository-10.1.0.12-linux-x64-installer.run"
 curl -OL $installer_url
 installer="*.run"
 chmod +x $installer
