@@ -10,8 +10,8 @@ RUN apt-get update && apt-get -y upgrade
 RUN apt-get install -y libgl1-mesa-glx libglib2.0-0
 
 # Create Folders.
-RUN mkdir /opt/Thinkbox/DeadlineDatabase10/
-RUN mkdir /opt/Thinkbox/DeadlineDatabase10/certs/
+#RUN mkdir /opt/Thinkbox/DeadlineDatabase10/
+#RUN mkdir /opt/Thinkbox/DeadlineDatabase10/certs/
 
 COPY DeadlineRepository-10.1.0.12-linux-x64-installer.run .
 RUN ./DeadlineRepository-10.1.0.12-linux-x64-installer.run \
