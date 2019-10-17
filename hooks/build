@@ -1,5 +1,3 @@
-#!/bin/bash -xe
-# Dockerhub build script
 installer_url="https://github.com/johan149/thinkbox-deadline-repository/releases/download/10.1.0.12/DeadlineRepository-10.1.0.12-linux-x64-installer.run"
 mongodb_url="http://downloads.mongodb.org/linux/mongodb-linux-x86_64-debian81-3.2.18.tgz"
 curl -OL $installer_url
@@ -8,4 +6,4 @@ installer="*.run"
 mongodbinst="*.tgz"
 chmod +x $installer
 chmod +x $mongodbinst
-docker build --build-arg DEADLINE_INSTALLER=$installer MONGODB_INSTALLER=$mongodbinst -t $IMAGE_NAME .
+docker build --build-arg DEADLINE_INSTALLER=$installer -t $IMAGE_NAME .
