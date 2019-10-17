@@ -1,4 +1,4 @@
-FROM debian:9
+FROM debian:8
 
 # Use your own e-mail for the maintainer.
 MAINTAINER johan@spacenative.com
