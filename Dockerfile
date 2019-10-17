@@ -7,7 +7,7 @@ MAINTAINER johan@spacenative.com
 RUN apt-get update && apt-get -y upgrade
 
 # Add requirements for Deadline 10 headless Slave.
-RUN apt-get install -y libgl1-mesa-glx libglib2.0-0 curl
+RUN apt-get install -y bzip2 libgl1-mesa-glx libglib2.0-0
 
 # Create Folders.
 RUN mkdir /opt/Thinkbox/
@@ -34,8 +34,8 @@ COPY DeadlineRepository-10.1.0.12-linux-x64-installer.run .
 COPY mongodb-linux-x86_64-debian81-3.2.18.tgz .
 RUN ./DeadlineRepository-10.1.0.12-linux-x64-installer.run \
     --unattendedmodeui minimal --mode unattended --prefix /opt/Thinkbox/DeadlineRepository10/ --setpermissions true --installmongodb true --dbOverwrite true --prepackagedDB ./mongodb-linux-x86_64-debian81-3.2.18.tgz --dbInstallationType prepackagedDB --mongodir /opt/Thinkbox/DeadlineDatabase10/ --dbListeningPort 27100 \
-    --certgen_outdir /opt/Thinkbox/DeadlineDatabase10/certs --certgen_password deadlinepass1111 --createX509dbuser true --requireSSL true --dbhost hostname --dbport 27100 --dbname deadline10db --dbuser root --dbpassword deadlinepass1111 --dbauth true --dbsplit true &&\
-    rm -f DeadlineRepository-10.1.0.12-linux-x64-installer.run
+    --certgen_outdir /opt/Thinkbox/DeadlineDatabase10/certs --certgen_password deadlinepass1111 --createX509dbuser true --requireSSL true --dbhost hostname --dbport 27100 --dbname deadline10db --dbuser root --dbpassword deadlinepass1111 --dbauth true --dbsplit true \
+    rm -f DeadlineRepository-10.1.0.12-linux-x64-installer.run &&\
     rm -f mongodb-linux-x86_64-debian81-3.2.18.tgz
 COPY entrypoint .
 CMD ["/entrypoint"]
