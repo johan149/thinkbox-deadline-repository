@@ -61,9 +61,8 @@ RUN apt-get update -y && apt-get -y install bzip2 libgl1-mesa-glx libglib2.0-0 o
     --dbpassword deadlinepass1111 \
     --dbauth true --dbsplit true &&
     rm -f DeadlineRepository-10.1.0.12-linux-x64-installer.run &&
-    rm -f /tmp/mongodb-linux-x86_64-debian81-3.2.18.tgz &&
-    rm -f /tmp/libssl1.0.0_1.0.1t-1+deb8u12_amd64.deb
-
-RUN mv bitrock_installer.log /opt/Thinkbox/DeadlineRepository10/bitrock_installer_log/
+    rm -f mongodb-linux-x86_64-debian81-3.2.18.tgz &&
+    rm -f libssl1.0.0_1.0.1t-1+deb8u12_amd64.deb &&
+    mv /tmp/bitrock_installer.log /opt/Thinkbox/DeadlineRepository10/bitrock_installer_log/
 COPY entrypoint .
 CMD ["/entrypoint"]
