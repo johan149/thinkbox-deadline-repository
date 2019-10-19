@@ -1,7 +1,7 @@
 FROM debian:9
 
 # Use your own e-mail for the maintainer.
-#MAINTAINER johan@spacenative.com
+MAINTAINER johan@spacenative.com
 
 # Perform a general udpate of the OS.
 #RUN apt-get update -y && apt-get -y install aria2 bzip2 libgl1-mesa-glx libglib2.0-0 openssl && apt-get -y upgrade
@@ -31,11 +31,9 @@ FROM debian:9
 #RUN wget http://downloads.mongodb.org/linux/mongodb-linux-x86_64-debian81-3.2.18.tgz -O /tmp/mongodb-linux-x86_64-debian81-3.2.18.tgz
 #RUN wget http://security.debian.org/debian-security/pool/updates/main/o/openssl/libssl1.0.0_1.0.1t-1+deb8u12_amd64.deb -O /tmp/libssl1.0.0_1.0.1t-1+deb8u12_amd64.deb
 
-#COPY DeadlineRepository-10.1.0.12-linux-x64-installer.run .
-#COPY libssl1.0.0_1.0.1t-1+deb8u12_amd64.deb .
-#COPY mongodb-linux-x86_64-debian81-3.2.18.tgz .
-
-COPY DeadlineRepository-10.1.0.12-linux-x64-installer.run libssl1.0.0_1.0.1t-1+deb8u12_amd64.deb mongodb-linux-x86_64-debian81-3.2.18.tgz .
+COPY DeadlineRepository-10.1.0.12-linux-x64-installer.run .
+COPY libssl1.0.0_1.0.1t-1+deb8u12_amd64.deb .
+COPY mongodb-linux-x86_64-debian81-3.2.18.tgz .
 
 RUN apt-get update -y && apt-get -y install ./libssl1.0.0_1.0.1t-1+deb8u12_amd64.deb bzip2 libgl1-mesa-glx libglib2.0-0 openssl && apt-get -y upgrade &&
     ./DeadlineRepository-10.1.0.12-linux-x64-installer.run \
@@ -62,6 +60,6 @@ RUN apt-get update -y && apt-get -y install ./libssl1.0.0_1.0.1t-1+deb8u12_amd64
     rm -f DeadlineRepository-10.1.0.12-linux-x64-installer.run &&
     rm -f mongodb-linux-x86_64-debian81-3.2.18.tgz &&
     rm -f libssl1.0.0_1.0.1t-1+deb8u12_amd64.deb &&
-    mv /tmp/bitrock_installer.log /opt/Thinkbox/DeadlineRepository10/bitrock_installer_log/
+    mv /tmp/bitrock_installer.log /opt/Thinkbox/DeadlineRepository10/
 COPY entrypoint .
 CMD ["/entrypoint"]
