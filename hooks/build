@@ -7,5 +7,7 @@ curl -OL $installer_url
 curl -OL $mongodb_url
 curl -OL $libssl1_url
 installer="*.run"
+mongodbbin="*.tgz"
+libssl1ins="*.deb"
 chmod +x $installer
-docker build --build-arg DEADLINE_INSTALLER=$installer -t $IMAGE_NAME .
+docker build --build-arg DEADLINE_INSTALLER=$installer --build-arg MONGODB_TGZ=$mongodbbin --build-arg LIBSSL1_INSTALLER=$libssl1ins -t $IMAGE_NAME .
