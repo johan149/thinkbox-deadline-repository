@@ -4,10 +4,7 @@ FROM debian:9
 MAINTAINER johan@spacenative.com
 
 # Perform a general udpate of the OS.
-RUN apt-get update -y && apt-get -y install aria2 && apt-get -y upgrade
-
-# Add requirements for Deadline 10 headless Slave.
-RUN apt-get install -y bzip2 libgl1-mesa-glx libglib2.0-0 openssl
+#RUN apt-get update -y && apt-get -y install aria2 bzip2 libgl1-mesa-glx libglib2.0-0 openssl && apt-get -y upgrade
 
 # Create Folders.
 #RUN mkdir -p /opt/Thinkbox/DeadlineDatabase10/mongo/application &&
@@ -35,7 +32,8 @@ RUN apt-get install -y bzip2 libgl1-mesa-glx libglib2.0-0 openssl
 #RUN wget http://security.debian.org/debian-security/pool/updates/main/o/openssl/libssl1.0.0_1.0.1t-1+deb8u12_amd64.deb -O /tmp/libssl1.0.0_1.0.1t-1+deb8u12_amd64.deb
 
 COPY DeadlineRepository-10.1.0.12-linux-x64-installer.run .
-RUN aria2c --continue=true --max-concurrent-downloads=1 --max-connection-per-server=16 --min-split-size=1M http://downloads.mongodb.org/linux/mongodb-linux-x86_64-debian81-3.2.18.tgz -d /tmp/ &&
+RUN apt-get update -y && apt-get -y install aria2 bzip2 libgl1-mesa-glx libglib2.0-0 openssl && apt-get -y upgrade &&
+    aria2c --continue=true --max-concurrent-downloads=1 --max-connection-per-server=16 --min-split-size=1M http://downloads.mongodb.org/linux/mongodb-linux-x86_64-debian81-3.2.18.tgz -d /tmp/ &&
     aria2c --continue=true --max-concurrent-downloads=1 --max-connection-per-server=16 --min-split-size=1M http://security.debian.org/debian-security/pool/updates/main/o/openssl/libssl1.0.0_1.0.1t-1+deb8u12_amd64.deb -d /tmp/ &&
     # Install jessie libssl1.0.0 dependencies
     dpkg -i /tmp/libssl1.0.0_1.0.1t-1+deb8u12_amd64.deb &&
