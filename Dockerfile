@@ -10,33 +10,37 @@ RUN apt-get update -y && apt-get -y install aria2 && apt-get -y upgrade
 RUN apt-get install -y bzip2 libgl1-mesa-glx libglib2.0-0 openssl
 
 # Create Folders.
-RUN mkdir -p /opt/Thinkbox/DeadlineDatabase10/mongo/application
-RUN mkdir -p /opt/Thinkbox/DeadlineDatabase10/data/logs
-RUN mkdir -p /opt/Thinkbox/DeadlineDatabase10/certs/
-RUN mkdir -p /opt/Thinkbox/DeadlineRepository10/
-RUN mkdir -p /opt/Thinkbox/DeadlineRepository10/bitrock_installer_log
+RUN mkdir -p /opt/Thinkbox/DeadlineDatabase10/mongo/application &&
+    mkdir -p /opt/Thinkbox/DeadlineDatabase10/data/logs &&
+    mkdir -p /opt/Thinkbox/DeadlineDatabase10/certs/ &&
+    mkdir -p /opt/Thinkbox/DeadlineRepository10/ &&
+    mkdir -p /opt/Thinkbox/DeadlineRepository10/bitrock_installer_log &&
+    # Give Permisions
+    chmod -R 777 /opt/Thinkbox/DeadlineRepository10 &&
+    chmod -R 777 /opt/Thinkbox/DeadlineDatabase10/ &&
+    groupadd nobody &&
+    chown -R nobody /opt/Thinkbox/DeadlineRepository10 &&
+    chgrp -R nobody /opt/Thinkbox/DeadlineRepository10
 
 # setup ulimit, super hi:
 #RUN ulimit -n 64000
 
-# Give Permisions
-RUN chmod -R 777 /opt/Thinkbox/DeadlineRepository10
-RUN chmod -R 777 /opt/Thinkbox/DeadlineDatabase10/
-RUN groupadd nobody
-RUN chown -R nobody /opt/Thinkbox/DeadlineRepository10
-RUN chgrp -R nobody /opt/Thinkbox/DeadlineRepository10
+# Download mongoDB Prepacked Binaries and install dependencies
+#RUN aria2c --continue=true --max-concurrent-downloads=1 --max-connection-per-server=16 --min-split-size=1M http://downloads.mongodb.org/linux/mongodb-linux-x86_64-debian81-3.2.18.tgz -d /tmp/ &&
+    #aria2c --continue=true --max-concurrent-downloads=1 --max-connection-per-server=16 --min-split-size=1M http://security.debian.org/debian-security/pool/updates/main/o/openssl/libssl1.0.0_1.0.1t-1+deb8u12_amd64.deb -d /tmp/ &&
+    # Install jessie libssl1.0.0 dependencies
+    #dpkg -i /tmp/libssl1.0.0_1.0.1t-1+deb8u12_amd64.deb
 
-# Download mongoDB Prepacked Binaries and dependencies
-RUN aria2c --continue=true --max-concurrent-downloads=1 --max-connection-per-server=16 --min-split-size=1M http://downloads.mongodb.org/linux/mongodb-linux-x86_64-debian81-3.2.18.tgz -d /tmp/
 #RUN wget http://downloads.mongodb.org/linux/mongodb-linux-x86_64-debian81-3.2.18.tgz -O /tmp/mongodb-linux-x86_64-debian81-3.2.18.tgz
-RUN aria2c --continue=true --max-concurrent-downloads=1 --max-connection-per-server=16 --min-split-size=1M http://security.debian.org/debian-security/pool/updates/main/o/openssl/libssl1.0.0_1.0.1t-1+deb8u12_amd64.deb -d /tmp/
 #RUN wget http://security.debian.org/debian-security/pool/updates/main/o/openssl/libssl1.0.0_1.0.1t-1+deb8u12_amd64.deb -O /tmp/libssl1.0.0_1.0.1t-1+deb8u12_amd64.deb
 
-# Install jessie libssl1.0.0 dependencies
-RUN dpkg -i /tmp/libssl1.0.0_1.0.1t-1+deb8u12_amd64.deb
-
 COPY DeadlineRepository-10.1.0.12-linux-x64-installer.run .
-RUN ./DeadlineRepository-10.1.0.12-linux-x64-installer.run \
+RUN aria2c --continue=true --max-concurrent-downloads=1 --max-connection-per-server=16 --min-split-size=1M http://downloads.mongodb.org/linux/mongodb-linux-x86_64-debian81-3.2.18.tgz -d /tmp/ &&
+    aria2c --continue=true --max-concurrent-downloads=1 --max-connection-per-server=16 --min-split-size=1M http://security.debian.org/debian-security/pool/updates/main/o/openssl/libssl1.0.0_1.0.1t-1+deb8u12_amd64.deb -d /tmp/ &&
+    # Install jessie libssl1.0.0 dependencies
+    dpkg -i /tmp/libssl1.0.0_1.0.1t-1+deb8u12_amd64.deb &&
+    # Install DeadlineRepository10
+    ./DeadlineRepository-10.1.0.12-linux-x64-installer.run \
     --mode unattended \
     --unattendedmodeui minimal \
     --prefix /opt/Thinkbox/DeadlineRepository10/ \
@@ -56,11 +60,10 @@ RUN ./DeadlineRepository-10.1.0.12-linux-x64-installer.run \
     --dbname deadline10db \
     --dbuser root \
     --dbpassword deadlinepass1111 \
-    --dbauth true --dbsplit true &&\
-    rm -f DeadlineRepository-10.1.0.12-linux-x64-installer.run &&\
-    rm -f /tmp/mongodb-linux-x86_64-debian81-3.2.18.tgz &&\
-    rm -f /tmp/libssl1.0.0_1.0.1t-1+deb8u12_amd64.deb
-
-RUN mv bitrock_installer.log /opt/Thinkbox/DeadlineRepository10/bitrock_installer_log/
+    --dbauth true --dbsplit true &&
+    rm -f DeadlineRepository-10.1.0.12-linux-x64-installer.run &&
+    rm -f /tmp/mongodb-linux-x86_64-debian81-3.2.18.tgz &&
+    rm -f /tmp/libssl1.0.0_1.0.1t-1+deb8u12_amd64.deb &&
+    mv bitrock_installer.log /opt/Thinkbox/DeadlineRepository10/bitrock_installer_log/
 COPY entrypoint .
 CMD ["/entrypoint"]
