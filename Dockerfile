@@ -1,8 +1,8 @@
 FROM debian:9
 
-COPY DeadlineRepository-10.1.0.12-linux-x64-installer.run .
+COPY DeadlineRepository-10.1.0.12-linux-x64-installer.run /tmp/
 RUN apt-get update -y && apt-get -y install bzip2 libgl1-mesa-glx libglib2.0-0 openssl && apt-get -y upgrade &&
-    ./DeadlineRepository-10.1.0.12-linux-x64-installer.run \
+    /tmp/DeadlineRepository-10.1.0.12-linux-x64-installer.run \
     --mode unattended \
     --unattendedmodeui minimal \
     --prefix /opt/Thinkbox/DeadlineRepository10/ \
