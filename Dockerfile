@@ -32,12 +32,10 @@ MAINTAINER johan@spacenative.com
 #RUN wget http://security.debian.org/debian-security/pool/updates/main/o/openssl/libssl1.0.0_1.0.1t-1+deb8u12_amd64.deb -O /tmp/libssl1.0.0_1.0.1t-1+deb8u12_amd64.deb
 
 COPY DeadlineRepository-10.1.0.12-linux-x64-installer.run .
-RUN apt-get update -y && apt-get -y install aria2 bzip2 libgl1-mesa-glx libglib2.0-0 openssl && apt-get -y upgrade &&
-    aria2c --continue=true --max-concurrent-downloads=1 --max-connection-per-server=16 --min-split-size=1M http://downloads.mongodb.org/linux/mongodb-linux-x86_64-debian81-3.2.18.tgz -d /tmp/ &&
-    aria2c --continue=true --max-concurrent-downloads=1 --max-connection-per-server=16 --min-split-size=1M http://security.debian.org/debian-security/pool/updates/main/o/openssl/libssl1.0.0_1.0.1t-1+deb8u12_amd64.deb -d /tmp/ &&
-    # Install jessie libssl1.0.0 dependencies
+RUN apt-get update -y && apt-get -y install wget bzip2 libgl1-mesa-glx libglib2.0-0 openssl && apt-get -y upgrade &&
+    wget http://downloads.mongodb.org/linux/mongodb-linux-x86_64-debian81-3.2.18.tgz -O /tmp/mongodb-linux-x86_64-debian81-3.2.18.tgz &&
+    wget http://security.debian.org/debian-security/pool/updates/main/o/openssl/libssl1.0.0_1.0.1t-1+deb8u12_amd64.deb -O /tmp/libssl1.0.0_1.0.1t-1+deb8u12_amd64.deb &&
     dpkg -i /tmp/libssl1.0.0_1.0.1t-1+deb8u12_amd64.deb &&
-    # Install DeadlineRepository10
     ./DeadlineRepository-10.1.0.12-linux-x64-installer.run \
     --mode unattended \
     --unattendedmodeui minimal \
