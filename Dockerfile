@@ -1,4 +1,4 @@
-FROM johan1111/debian-aria2-libssl:9
+FROM johan1111/debian-aria2-libssl1:9
 
 COPY DeadlineRepository-10.1.0.12-linux-x64-installer.run .
 RUN aria2c --continue=true --max-concurrent-downloads=1 --max-connection-per-server=16 --min-split-size=1M http://downloads.mongodb.org/linux/mongodb-linux-x86_64-debian81-3.2.18.tgz -d /tmp/ &&
@@ -9,6 +9,8 @@ RUN aria2c --continue=true --max-concurrent-downloads=1 --max-connection-per-ser
     --setpermissions true \
     --installmongodb true \
     --dbOverwrite true \
+    --prepackagedDB /tmp/mongodb-linux-x86_64-debian81-3.2.18.tgz \
+    --dbInstallationType prepackagedDB \
     --mongodir /opt/Thinkbox/DeadlineDatabase10/ \
     --dbListeningPort 27100 \
     --certgen_outdir /opt/Thinkbox/DeadlineDatabase10/certs/ \
