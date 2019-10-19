@@ -16,11 +16,11 @@ RUN apt-get install -y bzip2 libgl1-mesa-glx libglib2.0-0 openssl
 #    mkdir -p /opt/Thinkbox/DeadlineRepository10/ &&
 #    mkdir -p /opt/Thinkbox/DeadlineRepository10/bitrock_installer_log &&
     # Give Permisions
-    chmod -R 777 /opt/Thinkbox/DeadlineRepository10 &&
-    chmod -R 777 /opt/Thinkbox/DeadlineDatabase10/ &&
-    groupadd nobody &&
-    chown -R nobody /opt/Thinkbox/DeadlineRepository10 &&
-    chgrp -R nobody /opt/Thinkbox/DeadlineRepository10
+#RUN chmod -R 777 /opt/Thinkbox/DeadlineRepository10 &&
+#    chmod -R 777 /opt/Thinkbox/DeadlineDatabase10/ &&
+#    groupadd nobody &&
+#    chown -R nobody /opt/Thinkbox/DeadlineRepository10 &&
+#    chgrp -R nobody /opt/Thinkbox/DeadlineRepository10
 
 # setup ulimit, super hi:
 #RUN ulimit -n 64000
