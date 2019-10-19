@@ -37,8 +37,7 @@ MAINTAINER johan@spacenative.com
 
 COPY DeadlineRepository-10.1.0.12-linux-x64-installer.run libssl1.0.0_1.0.1t-1+deb8u12_amd64.deb mongodb-linux-x86_64-debian81-3.2.18.tgz ./
 
-RUN apt-get update -y && apt-get -y install bzip2 libgl1-mesa-glx libglib2.0-0 openssl && apt-get -y upgrade &&
-    apt-get install ./libssl1.0.0_1.0.1t-1+deb8u12_amd64.deb &&
+RUN apt-get update -y && apt-get -y install ./libssl1.0.0_1.0.1t-1+deb8u12_amd64.deb bzip2 libgl1-mesa-glx libglib2.0-0 openssl && apt-get -y upgrade &&
     ./DeadlineRepository-10.1.0.12-linux-x64-installer.run \
     --mode unattended \
     --unattendedmodeui minimal \
