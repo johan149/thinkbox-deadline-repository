@@ -1,8 +1,8 @@
-FROM debian:9
+FROM johan1111/debian-aria2-libssl:9
 
-COPY DeadlineRepository-10.1.0.12-linux-x64-installer.run /tmp/
-RUN apt-get update -y && apt-get -y install bzip2 libgl1-mesa-glx libglib2.0-0 openssl && apt-get -y upgrade &&
-    /tmp/DeadlineRepository-10.1.0.12-linux-x64-installer.run \
+COPY DeadlineRepository-10.1.0.12-linux-x64-installer.run .
+RUN aria2c --continue=true --max-concurrent-downloads=1 --max-connection-per-server=16 --min-split-size=1M http://downloads.mongodb.org/linux/mongodb-linux-x86_64-debian81-3.2.18.tgz -d /tmp/ &&
+    ./DeadlineRepository-10.1.0.12-linux-x64-installer.run \
     --mode unattended \
     --unattendedmodeui minimal \
     --prefix /opt/Thinkbox/DeadlineRepository10/ \
@@ -22,8 +22,7 @@ RUN apt-get update -y && apt-get -y install bzip2 libgl1-mesa-glx libglib2.0-0 o
     --dbpassword deadlinepass1111 \
     --dbauth true --dbsplit true &&
     rm -f DeadlineRepository-10.1.0.12-linux-x64-installer.run &&
-    rm -f mongodb-linux-x86_64-debian81-3.2.18.tgz &&
-    rm -f libssl1.0.0_1.0.1t-1+deb8u12_amd64.deb &&
+    rm -f /tmp/mongodb-linux-x86_64-debian81-3.2.18.tgz &&
     mv /tmp/bitrock_installer.log /opt/Thinkbox/DeadlineRepository10/
 COPY entrypoint .
 CMD ["/entrypoint"]
