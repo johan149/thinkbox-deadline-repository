@@ -36,7 +36,8 @@ RUN aria2c --continue=true --max-concurrent-downloads=1 --max-connection-per-ser
 RUN dpkg -i /tmp/libssl1.0.0_1.0.1t-1+deb8u12_amd64.deb
 
 COPY DeadlineRepository-10.1.0.12-linux-x64-installer.run .
-RUN --mode unattended \
+RUN ./DeadlineRepository-10.1.0.12-linux-x64-installer.run \
+    --mode unattended \
     --unattendedmodeui minimal \
     --prefix /opt/Thinkbox/DeadlineRepository10/ \
     --setpermissions true \
