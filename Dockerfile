@@ -1,7 +1,7 @@
 FROM debian:9
 
 # Use your own e-mail for the maintainer.
-MAINTAINER johan@spacenative.com
+#MAINTAINER johan@spacenative.com
 
 # Perform a general udpate of the OS.
 #RUN apt-get update -y && apt-get -y install aria2 bzip2 libgl1-mesa-glx libglib2.0-0 openssl && apt-get -y upgrade
