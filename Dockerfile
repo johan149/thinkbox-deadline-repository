@@ -1,7 +1,7 @@
 FROM debian:9
 
 COPY DeadlineRepository-10.1.0.12-linux-x64-installer.run .
-RUN apt-get update -y && apt-get -y install ./libssl1.0.0_1.0.1t-1+deb8u12_amd64.deb bzip2 libgl1-mesa-glx libglib2.0-0 openssl && apt-get -y upgrade &&
+RUN apt-get update -y && apt-get -y install bzip2 libgl1-mesa-glx libglib2.0-0 openssl && apt-get -y upgrade &&
     ./DeadlineRepository-10.1.0.12-linux-x64-installer.run \
     --mode unattended \
     --unattendedmodeui minimal \
@@ -9,8 +9,6 @@ RUN apt-get update -y && apt-get -y install ./libssl1.0.0_1.0.1t-1+deb8u12_amd64
     --setpermissions true \
     --installmongodb true \
     --dbOverwrite true \
-    --prepackagedDB ./mongodb-linux-x86_64-debian81-3.2.18.tgz \
-    --dbInstallationType prepackagedDB \
     --mongodir /opt/Thinkbox/DeadlineDatabase10/ \
     --dbListeningPort 27100 \
     --certgen_outdir /opt/Thinkbox/DeadlineDatabase10/certs/ \
