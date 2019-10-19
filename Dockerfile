@@ -10,11 +10,11 @@ RUN apt-get update -y && apt-get -y install aria2 && apt-get -y upgrade
 RUN apt-get install -y bzip2 libgl1-mesa-glx libglib2.0-0 openssl
 
 # Create Folders.
-RUN mkdir -p /opt/Thinkbox/DeadlineDatabase10/mongo/application &&
-    mkdir -p /opt/Thinkbox/DeadlineDatabase10/data/logs &&
-    mkdir -p /opt/Thinkbox/DeadlineDatabase10/certs/ &&
-    mkdir -p /opt/Thinkbox/DeadlineRepository10/ &&
-    mkdir -p /opt/Thinkbox/DeadlineRepository10/bitrock_installer_log &&
+#RUN mkdir -p /opt/Thinkbox/DeadlineDatabase10/mongo/application &&
+#    mkdir -p /opt/Thinkbox/DeadlineDatabase10/data/logs &&
+#    mkdir -p /opt/Thinkbox/DeadlineDatabase10/certs/ &&
+#    mkdir -p /opt/Thinkbox/DeadlineRepository10/ &&
+#    mkdir -p /opt/Thinkbox/DeadlineRepository10/bitrock_installer_log &&
     # Give Permisions
     chmod -R 777 /opt/Thinkbox/DeadlineRepository10 &&
     chmod -R 777 /opt/Thinkbox/DeadlineDatabase10/ &&
