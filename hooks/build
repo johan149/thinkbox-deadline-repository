@@ -1,6 +1,6 @@
 #!/bin/bash -xe
 # Dockerhub build script
 mongodb_url="http://downloads.mongodb.org/linux/mongodb-linux-x86_64-debian81-3.2.18.tgz"
-curl -OL $mongodb_url
+curl -OL $mongodb_url -o /tmp
 mongodbtgz="*.tgz"
 docker build --build-arg DEADLINE_MONGODBBIN=$mongodbtgz -t $IMAGE_NAME --ulimit nofile=64000:64000 .
